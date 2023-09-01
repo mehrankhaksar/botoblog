@@ -42,7 +42,7 @@ function BlogDetailsPage() {
   return (
     <Box
       component="section"
-      flex={1}
+      height="100%"
       bgcolor="white"
       p={2}
       borderRadius={3}
