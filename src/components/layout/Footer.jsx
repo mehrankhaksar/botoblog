@@ -1,23 +1,20 @@
-import React from "react";
+import { Paper, Typography } from "@mui/material";
 
-import { Box, Typography } from "@mui/material";
-
-function Footer() {
+const Footer = () => {
   return (
-    <Box component="footer" width="100%">
+    <Paper component="footer" elevation={0}>
       <Typography
         component="p"
         variant="p"
         fontWeight={700}
         color="primary"
         textAlign="center"
-        bgcolor="white"
-        py={2}
+        py={2.5}
       >
         پروژه وبلاگ با GraphQL | دوره ری‌اکت سایت بوتواستارت
       </Typography>
-    </Box>
+    </Paper>
   );
-}
+};
 
 export default Footer;

@@ -5,45 +5,52 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { GET_AUTHORS } from "../../graphql/queries";
 
-import { Box, Typography, Grid, Avatar, Divider } from "@mui/material";
+import {
+  Paper,
+  Typography,
+  Grid,
+  Button,
+  Avatar,
+  Divider,
+} from "@mui/material";
 
-import Loader from "../elements/Loader";
+import CustomLoading from "../elements/CustomLoading";
 
-function Authors() {
+const Authors = () => {
   const { loading, data } = useQuery(GET_AUTHORS);
 
   return (
-    <Box
-      component="div"
-      bgcolor="white"
-      p={2}
-      borderRadius={3}
-      boxShadow="0 5px 10px rgba(0,0,0,0.1)"
-    >
-      <Typography component="h3" variant="h5" fontWeight={700} mb={3}>
+    <Paper component="div" sx={{ p: 2.5 }} elevation={0}>
+      <Typography component="h3" variant="h5" fontWeight={700} mb={2.5}>
         نویسنده‌ها
       </Typography>
       {loading ? (
-        <Box display="flex" justifyContent="center">
-          <Loader width={85} height={85} />
-        </Box>
+        <CustomLoading width={50} height={50} />
       ) : (
-        <Grid container spacing={2}>
+        <Grid container spacing={2.5}>
           {data.authors.map((item, index) => (
-            <>
+            <React.Fragment key={item.id}>
               <Grid item xs={12}>
                 <Link to={`/authors/${item.slug}`}>
-                  <Box display="flex" alignItems="center">
-                    <Avatar sx={{ marginRight: 1 }} src={item.avatar.url} />
+                  <Button
+                    sx={{
+                      display: "flex",
+                      justifyContent: "start",
+                      alignItems: "center",
+                      gap: 0.5,
+                    }}
+                    fullWidth
+                    type="button"
+                  >
+                    <Avatar src={item.avatar.url} alt={item.name} />
                     <Typography
                       component="h4"
-                      variant="h6"
-                      fontWeight={700}
+                      fontWeight={800}
                       color="text.secondary"
                     >
                       {item.name}
                     </Typography>
-                  </Box>
+                  </Button>
                 </Link>
               </Grid>
               {index !== data.authors.length - 1 && (
@@ -51,12 +58,12 @@ function Authors() {
                   <Divider variant="middle" />
                 </Grid>
               )}
-            </>
+            </React.Fragment>
           ))}
         </Grid>
       )}
-    </Box>
+    </Paper>
   );
-}
+};
 
 export default Authors;

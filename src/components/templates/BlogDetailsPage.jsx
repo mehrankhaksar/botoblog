@@ -7,16 +7,23 @@ import { GET_BLOG } from "../../graphql/queries";
 
 import sanitizeHtml from "sanitize-html";
 
-import { Box, Grid, Typography, Avatar } from "@mui/material";
+import {
+  Paper,
+  Grid,
+  Typography,
+  IconButton,
+  Box,
+  Avatar,
+} from "@mui/material";
 import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
 
 import { toast } from "react-toastify";
 
-import Loader from "../elements/Loader";
-import FormElement from "../elements/FormElement";
+import CustomLoading from "../elements/CustomLoading";
+import CustomForm from "../elements/CustomForm";
 import Comments from "../modules/Comments";
 
-function BlogDetailsPage() {
+const BlogDetailsPage = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
 
@@ -25,8 +32,8 @@ function BlogDetailsPage() {
   });
 
   React.useEffect(() => {
-    if (error !== undefined)
-      toast.error("مشکلی رخ داده‌است.", {
+    if (error !== undefined) {
+      toast.error("مشکلی در سرور رخ داده‌است", {
         rtl: true,
         position: "top-right",
         autoClose: 5000,
@@ -37,30 +44,16 @@ function BlogDetailsPage() {
         progress: undefined,
         theme: "light",
       });
+      navigate(-1);
+    }
   }, [error]);
 
   return (
-    <Box
-      component="section"
-      height="100%"
-      bgcolor="white"
-      p={2}
-      borderRadius={3}
-      boxShadow="0 5px 10px rgba(0,0,0,0.1)"
-    >
+    <Paper component="section" sx={{ height: "100%", p: 2.5 }} elevation={0}>
       {loading ? (
-        <Box
-          component="div"
-          width="100%"
-          height="100%"
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Loader width={150} height={150} />
-        </Box>
+        <CustomLoading width={100} height={100} />
       ) : (
-        <Grid container spacing={3}>
+        <Grid container spacing={2.5}>
           <Grid
             item
             xs={12}
@@ -76,33 +69,31 @@ function BlogDetailsPage() {
             >
               {data.blog.title}
             </Typography>
-            <Box component="span" sx={{ cursor: "pointer" }}>
+            <IconButton>
               <ArrowBackIosNewRoundedIcon onClick={() => navigate(-1)} />
-            </Box>
+            </IconButton>
           </Grid>
           <Grid item xs={12}>
             <Box
               component="img"
               width="100%"
               height="100%"
-              borderRadius={2}
+              borderRadius={2.5}
               src={data.blog.cover.url}
               alt={slug}
             />
           </Grid>
-          <Grid item xs={12} display="flex" alignItems="center">
+          <Grid item xs={12} display="flex" alignItems="center" gap={1.5}>
             <Avatar
-              sx={{ width: 60, height: 60, marginRight: 1 }}
               src={data.blog.author.avatar.url}
               alt={data.blog.author.name}
             />
             <Box component="div">
-              <Typography component="h4" variant="h6" fontWeight={700}>
+              <Typography component="h4" variant="h6" fontWeight={800}>
                 {data.blog.author.name}
               </Typography>
               <Typography
                 component="span"
-                variant="p"
                 fontWeight={700}
                 color="text.secondary"
               >
@@ -111,25 +102,26 @@ function BlogDetailsPage() {
             </Box>
           </Grid>
           <Grid item xs={12}>
-            <Box
-              component="div"
+            <Typography
+              component="p"
+              variant="p"
+              fontWeight={500}
+              textAlign="justify"
               dangerouslySetInnerHTML={{
                 __html: sanitizeHtml(data.blog.content.html),
               }}
-              fontWeight={500}
-              textAlign="justify"
             />
           </Grid>
           <Grid item xs={12}>
             <Comments slug={slug} />
           </Grid>
           <Grid item xs={12}>
-            <FormElement slug={slug} />
+            <CustomForm slug={slug} />
           </Grid>
         </Grid>
       )}
-    </Box>
+    </Paper>
   );
-}
+};
 
 export default BlogDetailsPage;

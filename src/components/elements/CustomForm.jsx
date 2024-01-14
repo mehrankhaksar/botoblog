@@ -3,18 +3,18 @@ import React from "react";
 import { useMutation } from "@apollo/client";
 import { SEND_COMMENT } from "../../graphql/mutations";
 
-import { Box, Grid, TextField, Button } from "@mui/material";
+import { Paper, Grid, TextField, Button } from "@mui/material";
 
 import { toast } from "react-toastify";
 
-function FormElement({ slug }) {
+const CustomForm = ({ slug }) => {
   const [input, setInput] = React.useState({
     name: "",
     email: "",
     text: "",
   });
 
-  const changeHandler = (e) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setInput({ ...input, [name]: value });
   };
@@ -23,11 +23,13 @@ function FormElement({ slug }) {
     variables: { name: input.name, email: input.email, text: input.text, slug },
   });
 
-  const sendCommentHandler = () => {
+  const onSubmit = (e) => {
+    e.preventDefault();
+
     if (input.name && input.email && input.text) {
       sendComment();
       if (!loading) {
-        toast.success("نظر شما ارسال شد و منتظر تایید می‌باشد.", {
+        toast.success("نظر شما ارسال شد و منتظر تایید می‌باشد", {
           rtl: true,
           position: "top-center",
           autoClose: 5000,
@@ -44,7 +46,7 @@ function FormElement({ slug }) {
           text: "",
         });
       } else if (error) {
-        toast.error("مشکلی رخ داده‌است.", {
+        toast.error("مشکلی در سرور رخ داده‌است", {
           rtl: true,
           position: "top-right",
           autoClose: 5000,
@@ -57,7 +59,7 @@ function FormElement({ slug }) {
         });
       }
     } else {
-      toast.warn("تمام فیلد‌ها را پر کنید.", {
+      toast.warn("تمام فیلد ها را پر کنید", {
         rtl: true,
         position: "top-center",
         autoClose: 5000,
@@ -72,22 +74,22 @@ function FormElement({ slug }) {
   };
 
   return (
-    <Box
-      component="div"
-      bgcolor="white"
-      p={2}
-      borderRadius={3}
-      boxShadow="0 5px 10px rgba(0,0,0,0.1)"
+    <Paper
+      component="form"
+      sx={{ p: 2.5 }}
+      elevation={2}
+      noValidate
+      onSubmit={onSubmit}
     >
-      <Grid container spacing={2}>
+      <Grid container spacing={2.5}>
         <Grid item xs={12} sm={6}>
           <TextField
             variant="outlined"
             fullWidth
             name="name"
-            value={input.name}
             label="نام کاربری"
-            onChange={changeHandler}
+            value={input.name}
+            onChange={handleChange}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -95,49 +97,38 @@ function FormElement({ slug }) {
             variant="outlined"
             fullWidth
             name="email"
-            value={input.email}
             label="ایمیل"
-            onChange={changeHandler}
+            value={input.email}
+            onChange={handleChange}
           />
         </Grid>
         <Grid item xs={12}>
           <TextField
+            multiline
             variant="outlined"
             fullWidth
-            multiline
             minRows={4}
             name="text"
-            value={input.text}
             label="متن"
-            onChange={changeHandler}
+            value={input.text}
+            onChange={handleChange}
           />
         </Grid>
         <Grid item xs={12} sm={6} md={3} lg={2}>
-          {loading ? (
-            <Button
-              sx={{ fontWeight: 800 }}
-              variant="contained"
-              disabled
-              fullWidth
-              size="large"
-            >
-              در حال ارسال
-            </Button>
-          ) : (
-            <Button
-              sx={{ fontWeight: 800 }}
-              variant="contained"
-              fullWidth
-              size="large"
-              onClick={sendCommentHandler}
-            >
-              ارسال
-            </Button>
-          )}
+          <Button
+            sx={{ fontWeight: 800 }}
+            variant="contained"
+            fullWidth
+            size="large"
+            type="submit"
+            disabled={loading}
+          >
+            {loading ? "در حال ارسال" : "ارسال"}
+          </Button>
         </Grid>
       </Grid>
-    </Box>
+    </Paper>
   );
-}
+};
 
-export default FormElement;
+export default CustomForm;

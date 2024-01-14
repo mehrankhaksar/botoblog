@@ -9,7 +9,7 @@ import HomePage from "./components/templates/HomePage";
 import AuthorDetailsPage from "./components/templates/AuthorDetailsPage";
 import BlogDetailsPage from "./components/templates/BlogDetailsPage";
 
-function App() {
+export default function App() {
   return (
     <Layout>
       <ScrollToTop />
@@ -23,5 +23,3 @@ function App() {
     </Layout>
   );
 }
-
-export default App;
