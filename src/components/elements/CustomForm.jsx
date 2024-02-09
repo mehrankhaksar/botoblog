@@ -87,7 +87,7 @@ const CustomForm = ({ slug }) => {
             variant="outlined"
             fullWidth
             name="name"
-            label="نام کاربری"
+            label="نام"
             value={input.name}
             onChange={handleChange}
           />
