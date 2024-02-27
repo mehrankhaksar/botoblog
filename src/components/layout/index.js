@@ -14,12 +14,12 @@ export default function Layout({ children }) {
       justifyContent="space-between"
     >
       <Header />
-      <Box sx={{ flex: 1, py: "20px" }}>
+      <Box sx={{ flex: 1, my: "30px" }}>
         <Container
-          maxWidth="lg"
           sx={{
             height: "100%",
           }}
+          maxWidth="lg"
         >
           {children}
         </Container>

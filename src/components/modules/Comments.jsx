@@ -20,7 +20,7 @@ const Comments = ({ slug }) => {
         نظرات
       </Typography>
       <Grid container spacing={2.5}>
-        {data && data.comments.length ? (
+        {data?.comments.length ? (
           data.comments.map((item) => (
             <Grid item xs={12} key={item.id}>
               <Paper component="div" sx={{ p: 2.5 }} variant="outlined">

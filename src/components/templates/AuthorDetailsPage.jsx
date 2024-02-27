@@ -69,7 +69,6 @@ const AuthorDetailsPage = () => {
           >
             <Box
               component="div"
-              display="inline-block"
               mb={1.5}
               p={0.5}
               border="4px solid"
@@ -106,7 +105,7 @@ const AuthorDetailsPage = () => {
           </Grid>
           <Grid item xs={12}>
             <Typography component="h4" variant="h6" fontWeight={800} mb={2.5}>
-              مقالات {data.author.name}
+              مقالات
             </Typography>
             <Grid container spacing={2.5}>
               {data.author.blogs.map((item) => (

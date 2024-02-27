@@ -104,10 +104,11 @@ const CustomForm = ({ slug }) => {
         </Grid>
         <Grid item xs={12}>
           <TextField
-            multiline
             variant="outlined"
             fullWidth
+            multiline
             minRows={4}
+            maxRows={8}
             name="text"
             label="متن"
             value={input.text}

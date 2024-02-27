@@ -53,7 +53,7 @@ const Authors = () => {
                   </Button>
                 </Link>
               </Grid>
-              {index !== data.authors.length - 1 && (
+              {data.authors.length - 1 !== index && (
                 <Grid item xs={12}>
                   <Divider variant="middle" />
                 </Grid>

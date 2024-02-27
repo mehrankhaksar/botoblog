@@ -20,8 +20,8 @@ import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRound
 import { toast } from "react-toastify";
 
 import CustomLoading from "../elements/CustomLoading";
-import CustomForm from "../elements/CustomForm";
 import Comments from "../modules/Comments";
+import CustomForm from "../elements/CustomForm";
 
 const BlogDetailsPage = () => {
   const { slug } = useParams();
@@ -83,8 +83,9 @@ const BlogDetailsPage = () => {
               alt={slug}
             />
           </Grid>
-          <Grid item xs={12} display="flex" alignItems="center" gap={1.5}>
+          <Grid item display="flex" alignItems="center" gap={1.5}>
             <Avatar
+              sx={{ width: 75, height: 75 }}
               src={data.blog.author.avatar.url}
               alt={data.blog.author.name}
             />

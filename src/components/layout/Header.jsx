@@ -8,7 +8,7 @@ const Header = () => {
       <Container maxWidth="lg">
         <Toolbar>
           <Link to="/">
-            <Typography component="h2" variant="h5" fontWeight="700">
+            <Typography component="h2" variant="h5" fontWeight={800}>
               وبلاگ بوتواستارت
             </Typography>
           </Link>
