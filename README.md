@@ -1,2 +1,2 @@
-# React BotoBlog with GraphQL
+# React BotoBlog
 ## https://botoblog.vercel.app/
