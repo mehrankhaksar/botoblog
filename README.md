@@ -1,2 +1,2 @@
-# React BotoBlog
+# BotoBlog
 ## https://mehran-khaksar-botoblog.vercel.app/
